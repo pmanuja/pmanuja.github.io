@@ -36,13 +36,41 @@ h1{
 }
 .moviesCorousel img{
     padding: .5em;
-    margin: .3em .3em;
-    /* flex-basis: 1em; */
+    margin: .3em .2em;
+    border-radius: 10px;
+
+
 
 }
-.moviesLogo p{
+.moviesLogo h1{
   text-align: center;
   font-size: 20px;
   font-family: 'Fascinate Inline', cursive;
 
+}
+.carouselContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.carousel-button {
+  align-self: center;
+  background: #f2cd69;
+  color: #111;
+  padding: 10px;
+  border-radius: 10%;
+  text-align: center;
+  box-shadow: 1px 1px #fa8d8e;
+
+}
+.carousel-button:hover{
+  background: #fa8d8e;
+  color: white;
+}
+.previous{
+  margin-left: 5%;
+}
+.next{
+  margin-right: 5%;
 }
