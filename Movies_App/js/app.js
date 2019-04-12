@@ -61,16 +61,18 @@ $(() => {
     //get the id of last image and change the ids of images forward 1-2, 2-3 ,3-4, 4-5 so on to give an effect of corousel
     $('.next').on('click', (event) => {
         console.log('u clicked on next button!');
-        // const lastChildId = $('.moviesCorousel').children().last().attr('id');
-        // console.log(lastChildId);
-        for (var i = 0; i <= 4 ; i++) {
-          console.log('value of i is ' , i);
-          const j = i + 1;
-          console.log('value of i after is ' , j);
-          const childId = $('.moviesCorousel').children().eq(i).attr('id');
-          $('.moviesCorousel').children().eq(i).attr('src' , 'images/' + imgsArr[j].name + '.jpeg').attr('id',imgsArr[j].id);
-          console.log($('.moviesCorousel').children().eq(i).attr('src'));
 
+        for (var i = 0; i <= 4 ; i++) {
+          console.log('current index' , i);
+          const childId = $('.moviesCorousel').children().eq(i).attr('id');
+          console.log('current child id' , childId);
+          nextChild = parseInt(childId) + 1;
+          console.log('next child id' , nextChild);
+          $('.moviesCorousel').children().eq(i).attr('src' , 'images/' + imgsArr[nextChild].name + '.jpeg').attr('id',imgsArr[nextChild].id);
+          console.log($('.moviesCorousel').children().eq(i).attr('src'));
+          // if(nextChild > imgsArr.length){
+          //
+          // }
         }
 
     })
