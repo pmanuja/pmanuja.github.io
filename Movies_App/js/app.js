@@ -41,24 +41,59 @@ const imgsArr = [{
                   }];
 const imgPath = 'images/';
 
+
+
 $(() => {
 
-  // $.ajax({
-  //     url: 'http://www.omdbapi.com/?apikey=53aa2cd6&t=The*'
-  //   }
-  //   ).then(
-  //     (data) => {
-  //         console.log(data);
-  //       //  $('#name').html(data.Title)
-  //     },
-  //     () => {
-  //       console.log('bad request');
-  //     }
-  //
-  //   )
+  const $table = $('<table>').addClass('mtable');
+  const $thead = $('<thead>');
+  const $thTitle = $('<th>').text('Title');
+  const $thYear = $('<th>').text('Release Date');
+  const $thCategory = $('<th>').text('Overview');
+  const $thRating = $('<th>').text('Popularity');
+
+  $thead.append($thTitle).append($thYear).append($thCategory).append($thRating);
+
+
+
+
+
+  //const $tr = $('<tr>').append($('<td>').text('title')).append($('<td>').text('year')).append($('<td>').text('category')).append($('<td>').text('rating'));
+
+  const $moviestableDiv = $('.moviesTable');
+  $table.append($thead);
+
+  $.ajax({
+      url: 'https://api.themoviedb.org/3/discover/movie?api_key=6dfdfe59bd50dab0c7b14c12429fd96e&year=2019&with_original_language=hi'
+    }
+    ).then(
+      (data) => {
+          console.log(data);
+          for (let i = 0; i < 3; i++) {
+            const title = data.results[i].title;
+            console.log(title);
+            const $tr = ($('<tr>')).append($('<td>').html('<a href="/aU4DMIzR7u3EHqQ123oLmi9JTbL.jpg">' + title + '</a>'));
+            $tr.append($('<td>').text(data.results[i].release_date));
+            $tr.append($('<td>').text(data.results[i].overview));
+            $tr.append($('<td>').text(data.results[i].popularity));
+
+            console.log($tr);
+            $table.append($tr);
+          }
+
+          $moviestableDiv.append($table);
+
+      },
+      () => {
+        console.log('bad request');
+      }
+
+    )
 
     //on click event of  next button-
-    //get the id of last image and change the ids of images forward 1-2, 2-3 ,3-4, 4-5 so on to give an effect of corousel
+    //get the id of last image and change the ids of images forward
+    //1-2, 2-3 ,3-4, 4-5 and so on
+    //set forward id limit to the length of images array
     $('.next').on('click', (event) => {
         console.log('u clicked on next button!');
 
@@ -79,7 +114,9 @@ $(() => {
     })
 
     //on click event of  previous button-
-    //get the id of last image and change the ids of images backward 5-4 , 4-3, 3-2, 2-1 so on to give an effect of corousel
+    //get the id of last image and change the ids of images backward
+    //5-4 , 4-3, 3-2, 2-1 so on
+    //set the backward id limit to 0
     $('.previous').on('click', (event) => {
         console.log('u clicked on previous button!');
         for (let i = 4; i >= 0 ; i--) {

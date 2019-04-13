@@ -74,3 +74,58 @@ h1{
 .next{
   margin-right: 5%;
 }
+
+/* ////////Movies Table  */
+
+.moviesTableHeader{
+  border: 1px solid green;
+  width:80%;
+  padding: 1px;
+  margin: auto;
+  margin-top: 10px;
+}
+
+.moviesTableHeader h2{
+  font-family: 'Inconsolata', monospace;
+  display: inline-block;
+  float: left;
+}
+
+.inputYear{
+  display: inline-block;
+  float: left;
+  /* position: relative; */
+  height: 20px;
+  margin-top: 20px;
+  margin-left: 15px;
+  text-align: center;
+  border-radius: 5px;
+  border-color: lightgreen;
+}
+
+.moviesTable{
+  clear: both;
+  margin:auto;
+  width:80%;
+  border: 1px solid orange;
+
+
+}
+
+ .mtable {
+  border: 1px solid gray;
+  text-align: center;
+  width: 100%;
+  table-layout: auto;
+  margin: auto;
+  height: 80%;
+  overflow: scroll;
+
+}
+th,td{
+  width: 20%;
+  border: 1px solid gray;
+  padding: 10px;
+  text-align: center;
+
+}
