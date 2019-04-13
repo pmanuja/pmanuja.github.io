@@ -62,17 +62,18 @@ $(() => {
     $('.next').on('click', (event) => {
         console.log('u clicked on next button!');
 
-        for (var i = 0; i <= 4 ; i++) {
+        for (let i = 0; i <= 4 ; i++) {
           console.log('current index' , i);
           const childId = $('.moviesCorousel').children().eq(i).attr('id');
           console.log('current child id' , childId);
           nextChild = parseInt(childId) + 1;
+          if(nextChild > imgsArr.length - 1){
+              nextChild = 0;
+          }
           console.log('next child id' , nextChild);
           $('.moviesCorousel').children().eq(i).attr('src' , 'images/' + imgsArr[nextChild].name + '.jpeg').attr('id',imgsArr[nextChild].id);
           console.log($('.moviesCorousel').children().eq(i).attr('src'));
-          // if(nextChild > imgsArr.length){
-          //
-          // }
+
         }
 
     })
@@ -81,16 +82,21 @@ $(() => {
     //get the id of last image and change the ids of images backward 5-4 , 4-3, 3-2, 2-1 so on to give an effect of corousel
     $('.previous').on('click', (event) => {
         console.log('u clicked on previous button!');
-        const firstChildId = $('.moviesCorousel').children().first().attr('id');
-        console.log(firstChildId);
-        // for (var i = 0; i <= firstChildId ; i++) {
-        //   console.log('value of i is ' , i);
-        //   const j = i + 1;
-        //   console.log('value of i after is ' , j);
-        //   $('.moviesCorousel').children().eq(i).attr('src' , 'images/' + imgsArr[j] + '.jpeg');
-        //   console.log($('.moviesCorousel').children().eq(i).attr('src'));
-        //
-        // }
+        for (let i = 4; i >= 0 ; i--) {
+          console.log('current index' , i);
+          const childId = $('.moviesCorousel').children().eq(i).attr('id');
+          console.log('current child id' , childId);
+          previousChild = parseInt(childId) - 1;
+          if(previousChild < 0){
+              previousChild = imgsArr.length -1;
+          }
+          console.log('previous child id' , previousChild);
+          $('.moviesCorousel').children().eq(i).attr('src' , 'images/' + imgsArr[previousChild].name + '.jpeg').attr('id',imgsArr[previousChild].id);
+          console.log($('.moviesCorousel').children().eq(i).attr('src'));
+
+        }
+
+
 
     })
 
