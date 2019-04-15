@@ -48,6 +48,7 @@ let posterBasePath = 'http://image.tmdb.org/t/p/w185';
 $(() => {
 
   const $moviestableDiv = $('.moviesTable');
+  const $modal = $('.modal');
 
   const createTableHeader = () => {
     const $table = $('<table>').addClass('mtable');
@@ -63,19 +64,22 @@ $(() => {
     return $table;
   }
 
+
   const createTableRows = (table, data) => {
 
     let $table = table;
     $('.mtable tr').remove();
     console.log(data);
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 2; i++) {
       const title = data.results[i].title;
       console.log(title);
 
       posterPath = posterBasePath + data.results[i].poster_path;
       console.log(posterPath);
 
-      const $tr = ($('<tr>')).append($('<td>').html('<a href='+ posterPath + '>' + title + '</a>'));
+      //href='+ posterPath + '>' + title +
+
+      const $tr = ($('<tr>')).append($('<td>').html('<a href="#" >' + title + '</a>').addClass('openModal'));
       $tr.append($('<td>').text(data.results[i].release_date));
       $tr.append($('<td>').text(data.results[i].overview));
       $tr.append($('<td>').text(data.results[i].popularity));
@@ -83,6 +87,15 @@ $(() => {
       console.log($tr);
       $table.append($tr);
     }
+
+    $('body').on('click', '.openModal', function() {
+      //on click event of the title in the table
+      //open modal - that shows details of the movies
+        console.log('clicked a');
+        $('.modal-textbox').append($('<p>').text('Movie poster'));
+        $modal.css('display', 'block');
+    //  }
+    });
 
     return $table;
   }
@@ -97,12 +110,13 @@ const loadMoviestable = (userInputYear) => {
 
   $.ajax(
     {
-      url: 'https://api.themoviedb.org/3/discover/movie?api_key=6dfdfe59bd50dab0c7b14c12429fd96e&year='+ $inputYear +'&with_original_language=hi'
+      url: 'https://api.themoviedb.org/3/discover/movie?api_key=6dfdfe59bd50dab0c7b14c12429fd96e&primary_release_year='+ $inputYear +'&with_original_language=hi&sort_by=popularity.desc'
     }
     ).then(
       (data) => {
 
           $table = createTableRows($table , data);
+
           $moviestableDiv.append($table);
 
       },
@@ -181,9 +195,21 @@ const loadMoviestable = (userInputYear) => {
 
         }
 
-
-
     })
+
+
+
+
+    // Event handler to close the modal
+    const closeModal = () => {
+      $modal.css('display', 'none');
+    }
+
+    //on click event of close button
+    const $closeBtn = $('#close');
+    $closeBtn.on('click', closeModal);
+
+
 
 
 });
