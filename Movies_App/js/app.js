@@ -43,21 +43,50 @@ const imgPath = 'images/';
 
 let posterBasePath = 'http://image.tmdb.org/t/p/w185';
 
+
+
 $(() => {
 
-const $table = $('<table>').addClass('mtable');
-const $thead = $('<thead>');
-const $thTitle = $('<th>').text('Title');
-const $thYear = $('<th>').text('Release Date');
-const $thCategory = $('<th>').text('Overview');
-const $thRating = $('<th>').text('Popularity');
+  const $moviestableDiv = $('.moviesTable');
 
-$thead.append($thTitle).append($thYear).append($thCategory).append($thRating);
+  const createTableHeader = () => {
+    const $table = $('<table>').addClass('mtable');
+    const $thead = $('<thead>');
+    const $thTitle = $('<th>').text('Title');
+    const $thYear = $('<th>').text('Release Date');
+    const $thCategory = $('<th>').text('Overview');
+    const $thRating = $('<th>').text('Popularity');
 
+    $thead.append($thTitle).append($thYear).append($thCategory).append($thRating);
 
+    $table.append($thead);
+    return $table;
+  }
 
-const $moviestableDiv = $('.moviesTable');
-$table.append($thead);
+  const createTableRows = (table, data) => {
+
+    let $table = table;
+    $('.mtable tr').remove();
+    console.log(data);
+    for (let i = 0; i < 3; i++) {
+      const title = data.results[i].title;
+      console.log(title);
+
+      posterPath = posterBasePath + data.results[i].poster_path;
+      console.log(posterPath);
+
+      const $tr = ($('<tr>')).append($('<td>').html('<a href='+ posterPath + '>' + title + '</a>'));
+      $tr.append($('<td>').text(data.results[i].release_date));
+      $tr.append($('<td>').text(data.results[i].overview));
+      $tr.append($('<td>').text(data.results[i].popularity));
+
+      console.log($tr);
+      $table.append($tr);
+    }
+
+    return $table;
+  }
+
 
 const loadMoviestable = (userInputYear) => {
 
@@ -72,24 +101,8 @@ const loadMoviestable = (userInputYear) => {
     }
     ).then(
       (data) => {
-          // $table.empty();
-          console.log(data);
-          for (let i = 0; i < 3; i++) {
-            const title = data.results[i].title;
-            console.log(title);
 
-            posterPath = posterBasePath + data.results[i].poster_path;
-            console.log(posterPath);
-
-            const $tr = ($('<tr>')).append($('<td>').html('<a href='+ posterPath + '>' + title + '</a>'));
-            $tr.append($('<td>').text(data.results[i].release_date));
-            $tr.append($('<td>').text(data.results[i].overview));
-            $tr.append($('<td>').text(data.results[i].popularity));
-
-            console.log($tr);
-            $table.append($tr);
-          }
-
+          $table = createTableRows($table , data);
           $moviestableDiv.append($table);
 
       },
@@ -103,6 +116,9 @@ const loadMoviestable = (userInputYear) => {
 
 
 
+  //create table and its header once on page load
+  // $table.empty();
+  let $table = createTableHeader();
 
   //load movies for current year on page load
   loadMoviestable('2019');
