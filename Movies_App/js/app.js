@@ -41,38 +41,47 @@ const imgsArr = [{
                   }];
 const imgPath = 'images/';
 
-
+let posterBasePath = 'http://image.tmdb.org/t/p/w185';
 
 $(() => {
 
-  const $table = $('<table>').addClass('mtable');
-  const $thead = $('<thead>');
-  const $thTitle = $('<th>').text('Title');
-  const $thYear = $('<th>').text('Release Date');
-  const $thCategory = $('<th>').text('Overview');
-  const $thRating = $('<th>').text('Popularity');
+const $table = $('<table>').addClass('mtable');
+const $thead = $('<thead>');
+const $thTitle = $('<th>').text('Title');
+const $thYear = $('<th>').text('Release Date');
+const $thCategory = $('<th>').text('Overview');
+const $thRating = $('<th>').text('Popularity');
 
-  $thead.append($thTitle).append($thYear).append($thCategory).append($thRating);
-
-
+$thead.append($thTitle).append($thYear).append($thCategory).append($thRating);
 
 
 
-  //const $tr = $('<tr>').append($('<td>').text('title')).append($('<td>').text('year')).append($('<td>').text('category')).append($('<td>').text('rating'));
+const $moviestableDiv = $('.moviesTable');
+$table.append($thead);
 
-  const $moviestableDiv = $('.moviesTable');
-  $table.append($thead);
+const loadMoviestable = (userInputYear) => {
 
-  $.ajax({
-      url: 'https://api.themoviedb.org/3/discover/movie?api_key=6dfdfe59bd50dab0c7b14c12429fd96e&year=2019&with_original_language=hi'
+  let $inputYear = userInputYear;
+  if($inputYear === ''){
+    $inputYear = '2019';
+  }
+
+  $.ajax(
+    {
+      url: 'https://api.themoviedb.org/3/discover/movie?api_key=6dfdfe59bd50dab0c7b14c12429fd96e&year='+ $inputYear +'&with_original_language=hi'
     }
     ).then(
       (data) => {
+          // $table.empty();
           console.log(data);
           for (let i = 0; i < 3; i++) {
             const title = data.results[i].title;
             console.log(title);
-            const $tr = ($('<tr>')).append($('<td>').html('<a href="/aU4DMIzR7u3EHqQ123oLmi9JTbL.jpg">' + title + '</a>'));
+
+            posterPath = posterBasePath + data.results[i].poster_path;
+            console.log(posterPath);
+
+            const $tr = ($('<tr>')).append($('<td>').html('<a href='+ posterPath + '>' + title + '</a>'));
             $tr.append($('<td>').text(data.results[i].release_date));
             $tr.append($('<td>').text(data.results[i].overview));
             $tr.append($('<td>').text(data.results[i].popularity));
@@ -89,6 +98,29 @@ $(() => {
       }
 
     )
+
+}
+
+
+
+
+  //load movies for current year on page load
+  loadMoviestable('2019');
+
+    //on click event of 'go' button
+    //get the year from input text
+    //append year to the api url and get the results
+    //display results on UI
+
+    $('.inputYearBtn').on('click',(event) => {
+        console.log('u clicked go btn');
+        const $inputYear = $('.inputYear').val();
+        console.log('input year is ' , $inputYear );
+        loadMoviestable($inputYear);
+
+    })
+
+
 
     //on click event of  next button-
     //get the id of last image and change the ids of images forward

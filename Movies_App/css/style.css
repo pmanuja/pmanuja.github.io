@@ -92,7 +92,7 @@ h1{
   float: left;
 }
 
-.inputYear{
+.inputYear, .inputYearBtn{
   display: inline-block;
   float: left;
   /* position: relative; */
@@ -102,6 +102,16 @@ h1{
   text-align: center;
   border-radius: 5px;
   border-color: lightgreen;
+}
+.inputYearBtn{
+  height: 25px;
+  background-color: black;
+  color: white;
+  width:40px;
+  font-size: 14px;
+  font-weight: bold;
+
+
 }
 
 .moviesTable{
