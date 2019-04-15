@@ -70,7 +70,7 @@ $(() => {
     let $table = table;
     $('.mtable tr').remove();
     console.log(data);
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 5; i++) {
       const title = data.results[i].title;
       console.log(title);
 
@@ -81,7 +81,20 @@ $(() => {
 
       const $tr = ($('<tr>')).append($('<td>').html('<a href="#" >' + title + '</a>').addClass('openModal'));
       $tr.append($('<td>').text(data.results[i].release_date));
-      $tr.append($('<td>').text(data.results[i].overview));
+      // console.log('length of overview is' , data.results[i].overview.toString().length);
+      // let overviewText = data.results[i].overview.toString().length > 100 ? data.results[i].overview.toString().substring(0, 100) : data.results[i].overview ;
+      // console.log('overview text clipped', overviewText);
+      //$tr.append($('<td>').text(data.results[i].overview));
+      if(data.results[i].overview.toString().length > 100){
+
+        let overviewText = data.results[i].overview.toString().substring(0, 100);
+        $tr.append($('<td>').text(overviewText).append($('<a href="#">[Read more...]</a>').css('color','blue')));
+      }
+      else{
+          $tr.append($('<td>').text(data.results[i].overview));
+      }
+
+
       $tr.append($('<td>').text(data.results[i].popularity));
 
       console.log($tr);
