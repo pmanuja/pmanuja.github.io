@@ -43,6 +43,7 @@ const imgPath = 'images/';
 
 let posterBasePath = 'http://image.tmdb.org/t/p/w185';
 
+//const arr
 
 
 $(() => {
@@ -54,11 +55,11 @@ $(() => {
     const $table = $('<table>').addClass('mtable');
     const $thead = $('<thead>');
     const $thTitle = $('<th>').text('Title');
-    const $thYear = $('<th>').text('Release Date');
     const $thCategory = $('<th>').text('Overview');
     const $thRating = $('<th>').text('Popularity');
+    const $thYear = $('<th>').text('Release Date');
 
-    $thead.append($thTitle).append($thYear).append($thCategory).append($thRating);
+    $thead.append($thTitle).append($thCategory).append($thRating).append($thYear);
 
     $table.append($thead);
     return $table;
@@ -70,7 +71,7 @@ $(() => {
     let $table = table;
     $('.mtable tr').remove();
     console.log(data);
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 10; i++) {
       const title = data.results[i].title;
       console.log(title);
 
@@ -79,8 +80,8 @@ $(() => {
 
       //href='+ posterPath + '>' + title +
 
-      const $tr = ($('<tr>')).append($('<td>').html('<a href="#" >' + title + '</a>').addClass('openModal'));
-      $tr.append($('<td>').text(data.results[i].release_date));
+      const $tr = ($('<tr>')).append($('<td>').html('<a href="#" >' + title + '</a>').addClass('openModal').css('font-size','18px'));
+
       // console.log('length of overview is' , data.results[i].overview.toString().length);
       // let overviewText = data.results[i].overview.toString().length > 100 ? data.results[i].overview.toString().substring(0, 100) : data.results[i].overview ;
       // console.log('overview text clipped', overviewText);
@@ -88,7 +89,7 @@ $(() => {
       if(data.results[i].overview.toString().length > 100){
 
         let overviewText = data.results[i].overview.toString().substring(0, 100);
-        $tr.append($('<td>').text(overviewText).append($('<a href="#">[Read more...]</a>').css('color','blue')));
+        $tr.append($('<td>').text(overviewText).append($('<a href="#">[Read more...]</a>').css({'color':'blue'})));
       }
       else{
           $tr.append($('<td>').text(data.results[i].overview));
@@ -96,6 +97,7 @@ $(() => {
 
 
       $tr.append($('<td>').text(data.results[i].popularity));
+      $tr.append($('<td>').text(data.results[i].release_date));
 
       console.log($tr);
       $table.append($tr);
