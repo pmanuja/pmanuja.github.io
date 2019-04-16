@@ -78,8 +78,6 @@ $(() => {
       posterPath = posterBasePath + data.results[i].poster_path;
       console.log(posterPath);
 
-      //href='+ posterPath + '>' + title +
-
       const $tr = ($('<tr>')).append($('<td>').html('<a href="#" >' + title + '</a>').addClass('openModal').css('font-size','18px'));
 
       // console.log('length of overview is' , data.results[i].overview.toString().length);
@@ -94,8 +92,6 @@ $(() => {
       else{
           $tr.append($('<td>').text(data.results[i].overview));
       }
-
-
       $tr.append($('<td>').text(data.results[i].popularity));
       $tr.append($('<td>').text(data.results[i].release_date));
 
@@ -103,11 +99,18 @@ $(() => {
       $table.append($tr);
     }
 
-    $('body').on('click', '.openModal', function() {
+    $('body').on('click', '.openModal', function(event) {
       //on click event of the title in the table
       //open modal - that shows details of the movies
         console.log('clicked a');
-        $('.modal-textbox').append($('<p>').text('Movie poster'));
+        console.log(event.currentTarget.children);
+        let children = event.currentTarget.children;
+          for (let i = 0; i < children.length; i++) {
+              console.log(children[i].text);
+              $('.modal-textbox').append($('<h2>').text(children[i].text));
+              $('.modal-textbox').append($('<img>').attr('src','images/raazi.jpeg'));
+          }
+
         $modal.css('display', 'block');
     //  }
     });
