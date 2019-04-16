@@ -71,7 +71,7 @@ $(() => {
     let $table = table;
     $('.mtable tr').remove();
     console.log(data);
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 5; i++) {
       const title = data.results[i].title;
       console.log(title);
 
