@@ -51,6 +51,30 @@ $(() => {
   const $moviestableDiv = $('.moviesTable');
   const $modal = $('.modal');
 
+  const getDetails =(movieName) => {
+
+    let dataObj;
+    $.ajax(
+      {
+        url: 'http://www.omdbapi.com/?i=tt3896198&apikey=156f498e&t=' + movieName
+      }
+      ).then(
+        (data) => {
+
+            console.log('Movie details:' , data);
+            dataObj.Actors = data.Actors;
+            dataObj.Writer = data.Writer;
+            dataObj.Director = data.Director;
+        },
+        () => {
+          console.log('bad request');
+        }
+
+      )
+    console.log(dataObj);
+    return dataObj;
+  }
+
 
   const createTableHeader = () => {
     const $table = $('<table>').addClass('mtable');
@@ -120,6 +144,25 @@ $(() => {
           $('.modal-textbox').append($('<h2>').text(children[0].text));
           $('.modal-textbox').append($('<img>').attr('src',children[1].innerHTML));
 
+          //const movieDetailsObj = getDetails(children[0].text);
+          $.ajax(
+            {
+              url: 'http://www.omdbapi.com/?i=tt3896198&apikey=156f498e&t=' + children[0].text
+            }
+            ).then(
+              (data) => {
+
+                  console.log('Movie details:' , data);
+                  console.log(data.Actors);
+                  console.log(data.Director);
+                  console.log(data.Writer);
+
+              },
+              () => {
+                console.log('bad request');
+              }
+
+            )
 
           $modal.css('display', 'block');
 
