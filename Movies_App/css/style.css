@@ -147,11 +147,14 @@ h1{
 }
 th,td{
   width: 20%;
-  height:15px;
+  height:30px;
   border: 1px solid green;
   padding: 5px;
   text-align: left;
   vertical-align: middle;
+  /* white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; */
 
 }
 td{
@@ -179,7 +182,9 @@ tr:nth-child(odd){
   background: white;
 
 }
-
+tr p{
+  visibility: hidden;
+}
 /* .mtable a{
   text-decoration: none;
   color:white;
@@ -199,6 +204,18 @@ tr:nth-child(odd){
 	overflow: auto;
   display: none;
 }
+.modal-overview {
+	background-color: rgba(0,0,0,0.4);
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 1;
+	overflow: auto;
+  display: none;
+}
+
 .modal-textbox img{
   display: block;
   margin: auto;
@@ -217,14 +234,35 @@ tr:nth-child(odd){
 	height: 350px;
 	width: 550px;
 	border-radius: 4px;
-	margin: 150px auto;
+	margin: 250px auto;
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 }
+
+.modal-textbox-overview {
+  background-color: lightpink;
+	height: 250px;
+	width: 350px;
+	border-radius: 4px;
+	margin: 450px auto;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
 
 .modal-textbox a{
   float: right;
 }
 
+.modal-textbox-overview a{
+  float: right;
+}
+.modal-textbox-overview p{
+  clear:both;
+  text-align: left;
+  font-size: 16px;
+  font-family: sans-serif;
+  line-height: 25px;
+  margin-left: 20px;
+}
 /* ++++++ media query-+++++++++ */
 
 @media screen and (max-width: 1069px) {

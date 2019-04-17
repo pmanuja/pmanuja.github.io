@@ -51,6 +51,7 @@ $(() => {
   const $moviestableDiv = $('.moviesTable');
   const $modal = $('.modal');
 
+
   const createTableHeader = () => {
     const $table = $('<table>').addClass('mtable');
     const $thead = $('<thead>');
@@ -66,54 +67,94 @@ $(() => {
   }
 
 
+
   const createTableRows = (table, data) => {
 
     let $table = table;
     $('.mtable tr').remove();
     console.log(data);
     for (let i = 0; i < 5; i++) {
-      const title = data.results[i].title;
-      console.log(title);
+        const title = data.results[i].title;
+        console.log(title);
 
-      posterPath = posterBasePath + data.results[i].poster_path;
-      console.log(posterPath);
+        //get poster path
+        posterPath = posterBasePath + data.results[i].poster_path;
+        console.log(posterPath);
 
-      const $tr = ($('<tr>')).append($('<td>').html('<a href="#" >' + title + '</a>').addClass('openModal').css('font-size','18px'));
+        //add movie title to the title column
+        const $tr = ($('<tr>')).append($('<td>').html('<a href="#" >' + title + '</a> <p>' + posterPath + '</p>').addClass('openModal').css('font-size','18px'));
 
-      // console.log('length of overview is' , data.results[i].overview.toString().length);
-      // let overviewText = data.results[i].overview.toString().length > 100 ? data.results[i].overview.toString().substring(0, 100) : data.results[i].overview ;
-      // console.log('overview text clipped', overviewText);
-      //$tr.append($('<td>').text(data.results[i].overview));
-      if(data.results[i].overview.toString().length > 100){
+        // if the length of overview of the title is too big add [read more link]
+        if(data.results[i].overview.toString().length > 100){
 
-        let overviewText = data.results[i].overview.toString().substring(0, 100);
-        $tr.append($('<td>').text(overviewText).append($('<a href="#">[Read more...]</a>').css({'color':'blue'})));
+            let overviewText = data.results[i].overview.toString().substring(0, 100);
+            $tr.append($('<td>').text(overviewText).append($('<a href="#">[Read more...]</a> <p>' + data.results[i].overview + '</p>').css({'color':'blue'})).addClass('overview'));
+        }
+        else{
+            $tr.append($('<td>').text(data.results[i].overview));
+        }
+
+        //add popularity
+        $tr.append($('<td>').text(data.results[i].popularity));
+
+        //add release date
+        $tr.append($('<td>').text(data.results[i].release_date));
+
+        console.log($tr);
+        $table.append($tr);
       }
-      else{
-          $tr.append($('<td>').text(data.results[i].overview));
-      }
-      $tr.append($('<td>').text(data.results[i].popularity));
-      $tr.append($('<td>').text(data.results[i].release_date));
 
-      console.log($tr);
-      $table.append($tr);
-    }
+      $('body').on('click', '.openModal', function(event) {
+        //on click event of the title in the table
+        //open modal - that shows details of the movies
+          console.log('clicked a');
+          console.log(event.currentTarget.children);
+          let children = event.currentTarget.children;
+          console.log(children[0], children[1]);
+          console.log(children[0].text);
+          console.log(children[1].innerHTML);
 
-    $('body').on('click', '.openModal', function(event) {
-      //on click event of the title in the table
-      //open modal - that shows details of the movies
-        console.log('clicked a');
+          $('.modal-textbox').empty();
+          $('.modal-textbox').append($('<a id="close" href="#">[X]</a>'));
+          //$('.modal-textbox').append($('<a>').text('[X]').attr('href','#').attr('id','close'));
+          $('.modal-textbox').append($('<h2>').text(children[0].text));
+          $('.modal-textbox').append($('<img>').attr('src',children[1].innerHTML));
+
+
+          $modal.css('display', 'block');
+
+
+        $('body').on('click', '#close', function(event) {
+              $modal.css('display', 'none');
+
+        });
+
+
+
+      });
+
+      $('body').on('click', '.overview', function(event) {
+
+        console.log('clicked overview link');
         console.log(event.currentTarget.children);
         let children = event.currentTarget.children;
-          for (let i = 0; i < children.length; i++) {
-              console.log(children[i].text);
-              $('.modal-textbox').append($('<h2>').text(children[i].text));
-              $('.modal-textbox').append($('<img>').attr('src','images/raazi.jpeg'));
-          }
+        console.log(children[0], children[1]);
+        //console.log(children[0].text);
+        console.log('this is overview : ' , children[1].innerHTML);
+        $('.modal-textbox-overview').empty();
 
-        $modal.css('display', 'block');
-    //  }
-    });
+        $('.modal-textbox-overview').append($('<a id="close" href="#">[X]</a>'));
+
+        $('.modal-textbox-overview').append($('<p>').text(children[1].innerHTML));
+      //  $('.modal-textbox').append($('<img>').attr('src',children[1].innerHTML));
+        $('.modal-overview').css('display', 'block');
+
+        $('body').on('click', '#close', function(event) {
+              $('.modal-overview').css('display', 'none');
+
+        });
+
+      });
 
     return $table;
   }
@@ -214,19 +255,6 @@ const loadMoviestable = (userInputYear) => {
         }
 
     })
-
-
-
-
-    // Event handler to close the modal
-    const closeModal = () => {
-      $modal.css('display', 'none');
-    }
-
-    //on click event of close button
-    const $closeBtn = $('#close');
-    $closeBtn.on('click', closeModal);
-
 
 
 
