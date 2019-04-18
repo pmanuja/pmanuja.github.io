@@ -28,7 +28,8 @@ TMDB and OMDB
 
 The approach taken
 
-Link to the apps live site
+Link to the live site:
+https://github.com/pmanuja/pmanuja.github.io/Movies_App
 
 Installation instructions
 
