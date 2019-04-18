@@ -8,7 +8,7 @@ Creator: Pooja Manuja
 
 
 Movies App
-Movies app is a one page app that displays Popular Movies of the year. User can provide an year input ex:2018, to retrieve the results for popular movies of that year. Results are displayed in a table and are sorted by popularity.
+Movies app is a one page app that displays Popular Movies of the year. User can provide an year as a input for example '2018', to retrieve the results for popular movies of that year. Results are displayed in a table and are sorted by popularity.
 
 The app uses:
 AJAX to make a request to an external data source OMDBapi and TMDBapi to retrieve information about movies and display onto the DOM
@@ -26,10 +26,11 @@ HTML, CSS, Javascript and jQuery
 APIs used:
 TMDB and OMDB
 
-The approach taken
+The approach taken:
 
-Link to the live site:
-https://github.com/pmanuja/pmanuja.github.io/Movies_App
+
+Link to the live site
+https://pmanuja.github.io/Movies_App/
 
 Installation instructions
 
