@@ -43,37 +43,13 @@ const imgPath = 'images/';
 
 let posterBasePath = 'http://image.tmdb.org/t/p/w185';
 
-//const arr
+const myWatchlist = [];
 
 
 $(() => {
 
   const $moviestableDiv = $('.moviesTable');
   const $modal = $('.modal');
-
-  const getDetails =(movieName) => {
-
-    let dataObj;
-    $.ajax(
-      {
-        url: 'http://www.omdbapi.com/?i=tt3896198&apikey=156f498e&t=' + movieName
-      }
-      ).then(
-        (data) => {
-
-            console.log('Movie details:' , data);
-            dataObj.Actors = data.Actors;
-            dataObj.Writer = data.Writer;
-            dataObj.Director = data.Director;
-        },
-        () => {
-          console.log('bad request');
-        }
-
-      )
-    console.log(dataObj);
-    return dataObj;
-  }
 
 
   const createTableHeader = () => {
@@ -83,8 +59,9 @@ $(() => {
     const $thCategory = $('<th>').text('Overview');
     const $thRating = $('<th>').text('Popularity');
     const $thYear = $('<th>').text('Release Date');
+    const $thWatchlist = $('<th>').text('Add To My Watchlist');
 
-    $thead.append($thTitle).append($thCategory).append($thRating).append($thYear);
+    $thead.append($thTitle).append($thCategory).append($thRating).append($thYear).append($thWatchlist);
 
     $table.append($thead);
     return $table;
@@ -97,7 +74,7 @@ $(() => {
     let $table = table;
     $('.mtable tr').remove();
     console.log(data);
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
         const title = data.results[i].title;
         console.log(title);
 
@@ -124,9 +101,13 @@ $(() => {
         //add release date
         $tr.append($('<td>').text(data.results[i].release_date));
 
+        //add checkbox for watchlist selection
+        $tr.append($('<td>').html('<input type="checkbox" name="checkbox" class="watchlist"> <p>' + title + '</p>'));
+
         console.log($tr);
         $table.append($tr);
       }
+
 
       $('body').on('click', '.openModal', function(event) {
         //on click event of the title in the table
@@ -142,9 +123,9 @@ $(() => {
           $('.modal-textbox').append($('<a id="close" href="#">[X]</a>'));
           //$('.modal-textbox').append($('<a>').text('[X]').attr('href','#').attr('id','close'));
           $('.modal-textbox').append($('<h2>').text(children[0].text));
-          $('.modal-textbox').append($('<img>').attr('src',children[1].innerHTML));
+         $('.modal-textbox').append($('<img>').attr('src',children[1].innerHTML));
 
-          //const movieDetailsObj = getDetails(children[0].text);
+
           $.ajax(
             {
               url: 'http://www.omdbapi.com/?i=tt3896198&apikey=156f498e&t=' + children[0].text
@@ -156,6 +137,11 @@ $(() => {
                   console.log(data.Actors);
                   console.log(data.Director);
                   console.log(data.Writer);
+                  $('.modal-textbox').append($('<p>').html('<b>Actors : </b>' + data.Actors));
+                  console.log('appended actors');
+                  $('.modal-textbox').append($('<p>').html('<b>Director : </b>' + data.Director));
+                  $('.modal-textbox').append($('<p>').html('<b>Writer : </b>' + data.Writer));
+
 
               },
               () => {
@@ -187,7 +173,7 @@ $(() => {
         $('.modal-textbox-overview').empty();
 
         $('.modal-textbox-overview').append($('<a id="close" href="#">[X]</a>'));
-
+        $('.modal-textbox-overview').append($('<h2>').text('Plot'));
         $('.modal-textbox-overview').append($('<p>').text(children[1].innerHTML));
       //  $('.modal-textbox').append($('<img>').attr('src',children[1].innerHTML));
         $('.modal-overview').css('display', 'block');
@@ -198,6 +184,30 @@ $(() => {
         });
 
       });
+
+      // If add to my watchList checkbox is checked , get teh movie name and add to the list of my watchlist ul
+      $('body').on("change", ".watchlist", function (event) {
+
+        if (this.checked) {
+
+           console.log(event.currentTarget);
+           let children = $(event.currentTarget).parent();
+           const $movieName = children[0].lastChild.innerHTML;
+           console.log(children[0].lastChild.innerHTML);
+
+           myWatchlist.push($movieName);
+          // $(".my-watchlist").append($('<li>').text($movieName)).append($('<button type="button" name="remove" class="remove">X</button>'));
+          $(".my-watchlist").append($('<li>' + $movieName +'<button type="button" name="remove" class="remove">X</button></li>'));
+
+
+        }
+      });
+
+      $(".my-watchlist").on("click", "button", function(e) {
+              e.preventDefault();
+              $(this).parent().remove();
+      });
+
 
     return $table;
   }
