@@ -128,7 +128,7 @@ $(() => {
 
           $.ajax(
             {
-              url: 'http://www.omdbapi.com/?i=tt3896198&apikey=156f498e&t=' + children[0].text
+              url: 'https://www.omdbapi.com/?i=tt3896198&apikey=156f498e&t=' + children[0].text
             }
             ).then(
               (data) => {
