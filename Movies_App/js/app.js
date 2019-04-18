@@ -212,7 +212,10 @@ $(() => {
     return $table;
   }
 
-
+// make a ajax call to TMDB
+//get teh data
+//retrieve information from data and set up in the table as rows/columns
+//append data to table and table to Div
 const loadMoviestable = (userInputYear) => {
 
   let $inputYear = userInputYear;
