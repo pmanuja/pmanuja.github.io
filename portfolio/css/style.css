@@ -1,6 +1,9 @@
 body{
   padding: 0;
   margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  color: #4A4E69;
+  font-weight: 300;
   /* background-color: azure; */
 }
 
@@ -118,12 +121,24 @@ li{
 h2{
   text-align: center;
   padding: 10px;
+  text-decoration: underline;
 }
-#myWork > h2{
-  /* visibility: hidden; */
+.row-wheat > h2{
+  padding: 10px;
+  text-decoration: none;
 
 }
 /*  ++++++++++++++++   work item row   ++++++++*/
+#myWork{
+  background-color: azure;
+  padding: 10px;
+}
+#myWork>h2{
+  padding: 10px;
+  margin: 10px;
+  text-decoration: none;
+}
+
 .work-item-row{
   display: flex;
   justify-content:space-between;
@@ -164,6 +179,15 @@ h2{
 }
 
 /*  aboutMe-section*/
+#aboutMe{
+  background-color: azure;
+}
+#aboutMe >h2{
+  /* background-color: lightblue; */
+  text-decoration: none;
+  padding: 10px;
+  margin: 10px;
+}
 .aboutMe-sec{
   display: flex;
   justify-content: center;
@@ -171,14 +195,45 @@ h2{
 }
 .aboutMe-img{
   margin-left: 15%;
-  margin-top:5%;
+  margin-top:1%;
 }
 .My-img{
   display: block;
-  width:70%;
+  width:60%;
   height:50%;
   border-radius: 50%;
 }
 .aboutMe-desc{
   margin-right: 15%;
+}
+
+a{
+  display: block;
+  font-size: 18px;
+  font-family: "montserrat";
+  transition: 0.5s;
+  /* text-decoration:underline; */
+
+}
+.my-exp{
+  text-align: center;
+}
+
+#myExperience > a {
+  /* text-decoration: underline; */
+  color: blue;
+}
+.my-exp-resume >ul,li,a {
+  text-align: center;
+  list-style: none;
+  /* text-decoration: none; */
+}
+#myExperience{
+  background-color: lightblue;
+  padding: 10px;
+  font-size: 24px;
+}
+#myContact{
+  background-color: azure;
+  padding: 10px;
 }
