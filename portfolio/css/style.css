@@ -125,10 +125,13 @@ h2{
   text-align: center;
   padding: 10px;
   text-decoration: underline;
+  color: #337ab7;
+  font-weight: 400;
 }
 .row-wheat > h2{
   padding: 10px;
   text-decoration: none;
+  color:#337ab7;
 
 }
 /*  ++++++++++++++++   work item row   ++++++++*/
@@ -140,6 +143,7 @@ h2{
   padding: 10px;
   margin: 10px;
   text-decoration: none;
+  color: #4A4E69;
 }
 
 .work-item-row{
@@ -239,6 +243,8 @@ a{
 #myContact{
   background-color: azure;
   padding: 10px;
+  color: #337ab7;
+  font-weight: 400;
 }
 
 /*  ============media =====*/
