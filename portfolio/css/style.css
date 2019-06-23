@@ -48,7 +48,9 @@ li{
 .header-bio{
   text-align: center;
 }
-
+.header-nav{
+  font-family: 'Open Sans', sans-serif;
+}
 /* Main Grid  */
 
 .grid-container {
@@ -91,8 +93,9 @@ li{
   padding: 5px 15px;
   border: 1px solid lightblue;
   border-radius: 5px;
-  font-size: 20px;
+  font-size: 18px;
   font-family: "montserrat";
+  font-family: 'Open Sans', sans-serif;
   transition: 0.5s;
   background: lightblue;
   /* position:absolute; */
@@ -155,7 +158,7 @@ h2{
 }
 .work-img{
   display: block;
-  width:100%;
+  width:400px;
   height:100%;
   border: 0.5px solid grey;
 }
@@ -236,4 +239,25 @@ a{
 #myContact{
   background-color: azure;
   padding: 10px;
+}
+
+/*  ============media =====*/
+@media screen and (max-width: 1090px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 10px;
+    margin-right:25%;
+    width:600px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 10px;
+    margin-right:35%;
+    width:600px;
+  }
 }
